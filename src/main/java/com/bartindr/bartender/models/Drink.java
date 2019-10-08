@@ -64,10 +64,88 @@ public class Drink {
     public Drink() {
     	// constructor
     }
-    
-    
-    
-    @PrePersist
+        
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getDrinkId() {
+		return drinkId;
+	}
+
+	public void setDrinkId(Long drinkId) {
+		this.drinkId = drinkId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public String getInstruction() {
+		return instruction;
+	}
+
+	public void setInstruction(String instruction) {
+		this.instruction = instruction;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
+
+	public List<DrinkList> getDrinkLists() {
+		return drinkLists;
+	}
+
+	public void setDrinkLists(List<DrinkList> drinkLists) {
+		this.drinkLists = drinkLists;
+	}
+
+	@PrePersist
     protected void onCreate(){
         this.createdAt = new Date();
     }

@@ -39,12 +39,60 @@ public class DrinkList {
 			)
 	private List<Drink> drinks;
 	
-	   @PrePersist
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+			name="drink_lists_drinks",
+			joinColumns = @JoinColumn(name = "drink_list_id"),
+			inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+			)
+	private List<Ingredient> ingredients;
+	
+	public DrinkList() {
+		//constructor
+	}
+	
+    public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public List<Drink> getDrinks() {
+		return drinks;
+	}
+	public void setDrinks(List<Drink> drinks) {
+		this.drinks = drinks;
+	}
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
+	@PrePersist
 	    protected void onCreate(){
 	        this.createdAt = new Date();
-	    }
-	    @PreUpdate
-	    protected void onUpdate(){
-	        this.updatedAt = new Date();
-	    }
+    }
+	@PreUpdate
+	protected void onUpdate(){
+	    this.updatedAt = new Date();
+	}
 }
