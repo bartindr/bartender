@@ -40,7 +40,7 @@ public class User {
 	private Date createdAt;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
-	@OneToMany(mappedBy = "drinkList", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
 	private List<DrinkList> drinkLists;
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
