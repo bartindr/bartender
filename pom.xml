@@ -13,9 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Bartender</name>
-	<description>TetraLinkZ is a "Captain's Mistress" webapp utilizing Websocket for a multiplayer functionality built on Java with Spring Boot.
-
-</description>
+	<description>Bartending Helper WebApp</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -75,6 +73,11 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
+	    <dependency>
+	        <groupId>org.mindrot</groupId>
+	        <artifactId>jbcrypt</artifactId>
+	        <version>0.4</version>
+	    </dependency>
 	</dependencies>
 
 	<build>
