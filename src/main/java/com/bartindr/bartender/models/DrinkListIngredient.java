@@ -1,7 +1,6 @@
 package com.bartindr.bartender.models;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -19,35 +17,26 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "ingredients")
-public class Ingredient {
+@Table(name="drink_lists_ingredients")
+public class DrinkListIngredient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-    private String name;
-    @Column(updatable=false)
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+	@Column(updatable=false)
+	@DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createdAt;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
-
-    @ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(
-			name="drinks_ingredients",
-			joinColumns = @JoinColumn(name = "ingredient"),
-			inverseJoinColumns = @JoinColumn(name = "drink_id")
-			)
-	private List<Drink> drinks;
     
-    @ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(
-			name="drink_lists_ingredients",
-			joinColumns = @JoinColumn(name = "ingredient_id"),
-			inverseJoinColumns = @JoinColumn(name = "drink_list_id")
-			)
-	private List<DrinkList> drinkLists;
+    @ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "drink_list_id")
+	private DrinkList drinkList;
     
-    public Ingredient() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ingredient_id")
+    private Ingredient ingredient;
+    
+    public DrinkListIngredient() {
     	//constructor
     }
 
@@ -57,14 +46,6 @@ public class Ingredient {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Date getCreatedAt() {
@@ -83,20 +64,20 @@ public class Ingredient {
 		this.updatedAt = updatedAt;
 	}
 
-	public List<Drink> getDrinks() {
-		return drinks;
+	public DrinkList getDrinkList() {
+		return drinkList;
 	}
 
-	public void setDrinks(List<Drink> drinks) {
-		this.drinks = drinks;
+	public void setDrinkList(DrinkList drinkList) {
+		this.drinkList = drinkList;
 	}
 
-	public List<DrinkList> getDrinkLists() {
-		return drinkLists;
+	public Ingredient getIngredient() {
+		return ingredient;
 	}
 
-	public void setDrinkLists(List<DrinkList> drinkLists) {
-		this.drinkLists = drinkLists;
+	public void setIngredient(Ingredient ingredient) {
+		this.ingredient = ingredient;
 	}
     
 	   @PrePersist
@@ -107,5 +88,4 @@ public class Ingredient {
 	    protected void onUpdate(){
 	        this.updatedAt = new Date();
 	    }
-    
 }
