@@ -12,6 +12,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bartindr.bartender.models.Ingredient;
 import com.bartindr.bartender.repositories.IngredientRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -41,7 +42,15 @@ public class MainService {
 	    Type type = new TypeToken<Map<String, Object>>(){}.getType();
 	    Map<String, ArrayList<Object>> myMap = gson.fromJson(content.toString(), type);
 	    ArrayList<Object> ingredients = myMap.get("drinks");
-	    System.out.println(ingredients);
+//	    System.out.println(ingredients);
+	    
+	    for( Object ingredient : ingredients) {
+	    	String jobj = gson.toJsonTree(ingredient).getAsJsonObject().get("strIngredient1").toString();
+//	    	System.out.println(jobj);
+	    	Ingredient ing = new Ingredient(jobj);
+	    	ingredientRepository.save(ing);
+	    }
+	    
 	}
 	
 }

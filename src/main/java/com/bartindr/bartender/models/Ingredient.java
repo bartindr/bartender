@@ -50,6 +50,10 @@ public class Ingredient {
     public Ingredient() {
     	//constructor
     }
+    
+    public Ingredient(String name) {
+    	this.name = name;
+    }
 
 	public Long getId() {
 		return id;
