@@ -4,9 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>BarTindr</title>
 </head>
 <body>
-	<h1>HELLO FORM JSP</h1>
+	<div id="app">
+		<h1>HELLO FORM JSP</h1>
+		<h2>Render app here</h2>
+		<!-- Render App -->
+	</div>
+	<!-- bundle source for React app -->
+	<script src="built/bundle.js"></script>
 </body>
 </html>
