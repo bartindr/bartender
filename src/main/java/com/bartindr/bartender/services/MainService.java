@@ -14,7 +14,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bartindr.bartender.models.DrinkListIngredient;
 import com.bartindr.bartender.models.Ingredient;
 import com.bartindr.bartender.repositories.DrinkRepository;
 import com.bartindr.bartender.repositories.IngredientRepository;
