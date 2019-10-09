@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -45,14 +46,14 @@ public class MainService {
 	    for( Object ingredient : ingredients) {
 	    	String jobj = gson.toJsonTree(ingredient).getAsJsonObject().get("strIngredient1").toString();
 	    	Ingredient ing = new Ingredient(jobj);
-	    	if(!this.findIngredientByName(jobj)) {
+	    	if(!this.checkExistingIngredient(jobj)) {
 	    		ingredientRepository.save(ing);	    		
 	    	}
 	    }    
 	}
 	
 	//Check db to see if there are any duplicate ingredients. (For future when db gets updated)
-	public Boolean findIngredientByName(String name) {
+	public Boolean checkExistingIngredient(String name) {
 		Optional<Ingredient> i = ingredientRepository.findByName(name);
 		
 		if(i.isPresent()) {
@@ -61,5 +62,28 @@ public class MainService {
 			return false;
 		}
 	}
+	
+	// find all ingredients
+	public List<Ingredient> allIngredients(){
+		return ingredientRepository.findAll();
+	}
+	
+	// find ingredient by name
+	public Ingredient findIngredientByName(String name) {
+		Optional<Ingredient> optionalIngredient = ingredientRepository.findByName(name);
+		
+		if(optionalIngredient.isPresent()) {
+			return optionalIngredient.get();
+		} else {
+			return null;
+		}
+	}
+	
+	
+	public List<String> searchIngredient(String keyword) {
+		System.out.println("Typed");
+		return ingredientRepository.search(keyword);
+	}
+	
 	
 }
