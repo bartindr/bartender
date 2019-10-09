@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,21 +37,29 @@ public class MainService {
 	        content.append(inputLine);
 	    }
 	    
-//	    System.out.println(content);
-	    
 	    Gson gson = new Gson();
 	    Type type = new TypeToken<Map<String, Object>>(){}.getType();
 	    Map<String, ArrayList<Object>> myMap = gson.fromJson(content.toString(), type);
 	    ArrayList<Object> ingredients = myMap.get("drinks");
-//	    System.out.println(ingredients);
 	    
 	    for( Object ingredient : ingredients) {
 	    	String jobj = gson.toJsonTree(ingredient).getAsJsonObject().get("strIngredient1").toString();
-//	    	System.out.println(jobj);
 	    	Ingredient ing = new Ingredient(jobj);
-	    	ingredientRepository.save(ing);
-	    }
-	    
+	    	if(!this.findIngredientByName(jobj)) {
+	    		ingredientRepository.save(ing);	    		
+	    	}
+	    }    
+	}
+	
+	//Check db to see if there are any duplicate ingredients. (For future when db gets updated)
+	public Boolean findIngredientByName(String name) {
+		Optional<Ingredient> i = ingredientRepository.findByName(name);
+		
+		if(i.isPresent()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 }
