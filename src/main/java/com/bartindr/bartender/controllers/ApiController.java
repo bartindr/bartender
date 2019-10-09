@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,11 +18,6 @@ import com.bartindr.bartender.services.MainService;
 public class ApiController {
 	@Autowired
 	private MainService mainService;
-	
-	@RequestMapping("/api/test")
-	public void test() throws IOException{
-		mainService.populateIngredientsDB();
-	}
 	
 	@PostMapping("/api/checklist/add")
 	public void addIngredientToList(
@@ -47,10 +41,5 @@ public class ApiController {
 //		System.out.println(drinkList.getIngredients().contains(ingredient));
 	}
 	
-//	@RequestMapping("/api/test2")
-//	public void test2() throws IOException {
-//	
-//		mainService.populateDrinksDB(mainService.allIngredients());
-//	}
 	
 }
