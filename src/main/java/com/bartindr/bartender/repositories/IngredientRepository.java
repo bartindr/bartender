@@ -13,7 +13,6 @@ import com.bartindr.bartender.models.Ingredient;
 @Repository
 public interface IngredientRepository extends CrudRepository<Ingredient, Long>{
 	List<Ingredient> findAll();
-	
 	Optional<Ingredient> findByName(String name);
 	
 	@Query("SELECT name FROM Ingredient where name like %:keyword%")
