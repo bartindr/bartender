@@ -13,14 +13,8 @@ import com.bartindr.bartender.models.Ingredient;
 @Repository
 public interface IngredientRepository extends CrudRepository<Ingredient, Long>{
 	List<Ingredient> findAll();
-<<<<<<< HEAD
-	Optional<Ingredient> findByName(String name);
-||||||| merged common ancestors
-=======
-	
 	Optional<Ingredient> findByName(String name);
 	
 	@Query("SELECT name FROM Ingredient where name like %:keyword%")
 	public List<String> search(@Param("keyword")String keyword);
->>>>>>> 3b615db4d71d359b755656a6f7d8539ea048954f
 }
