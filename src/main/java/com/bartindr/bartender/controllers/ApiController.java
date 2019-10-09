@@ -47,10 +47,10 @@ public class ApiController {
 //		System.out.println(drinkList.getIngredients().contains(ingredient));
 	}
 	
-	@RequestMapping("/api/test2")
-	public void test2() throws IOException {
-	
-		mainService.populateDrinksDB(mainService.allIngredients());
-	}
+//	@RequestMapping("/api/test2")
+//	public void test2() throws IOException {
+//	
+//		mainService.populateDrinksDB(mainService.allIngredients());
+//	}
 	
 }
