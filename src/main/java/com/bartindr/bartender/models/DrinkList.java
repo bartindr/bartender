@@ -16,20 +16,24 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="name")
+@Table(name="drinklists")
 public class DrinkList {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Size(min=2, max=20)
+	private String name;
 	@Column(updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createdAt;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
+	
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
@@ -73,7 +77,7 @@ public class DrinkList {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	public User getOwnder() {
+	public User getOwner() {
 		return owner;
 	}
 	public void setOwner(User owner) {
@@ -91,6 +95,15 @@ public class DrinkList {
 	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	@PrePersist
 	    protected void onCreate(){
 	        this.createdAt = new Date();
