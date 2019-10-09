@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,10 @@ public class MainService {
 	    	ingredientRepository.save(ing);
 	    }
 	    
+	}
+	
+	public List<Ingredient> allIngredients(){
+		return ingredientRepository.findAll();
 	}
 	
 }
