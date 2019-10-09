@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,8 +55,27 @@ public class MainService {
 	    
 	}
 	
+	// find all ingredients
 	public List<Ingredient> allIngredients(){
 		return ingredientRepository.findAll();
 	}
+	
+	// find ingredient by name
+	public Ingredient findIngredientByName(String name) {
+		Optional<Ingredient> optionalIngredient = ingredientRepository.findByName(name);
+		
+		if(optionalIngredient.isPresent()) {
+			return optionalIngredient.get();
+		} else {
+			return null;
+		}
+	}
+	
+	
+	public List<String> searchIngredient(String keyword) {
+		System.out.println("Typed");
+		return ingredientRepository.search(keyword);
+	}
+	
 	
 }
