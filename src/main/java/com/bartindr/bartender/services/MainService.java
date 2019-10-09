@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.bartindr.bartender.models.DrinkListIngredient;
 import com.bartindr.bartender.models.Ingredient;
+import com.bartindr.bartender.repositories.DrinkRepository;
 import com.bartindr.bartender.repositories.DrinkListIngredientRepository;
 import com.bartindr.bartender.repositories.IngredientRepository;
 import com.google.gson.Gson;
@@ -25,6 +26,8 @@ import com.google.gson.reflect.TypeToken;
 public class MainService {
 	@Autowired
 	private IngredientRepository ingredientRepository;
+	@Autowired
+	private DrinkRepository drinkRepo;
 	@Autowired
 	private DrinkListIngredientRepository drinkListRepository;
 	
