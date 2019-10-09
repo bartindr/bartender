@@ -21,35 +21,29 @@ public class ApiController {
 	@Autowired
 	private MainService mainService;
 	
-//	@RequestMapping("/api/test")
-//	public void test() throws IOException{
-//		mainService.populateIngredientsDB();
-//	}
+	@RequestMapping("/api/test")
+	public void test() throws IOException{
+		mainService.populateIngredientsDB();
+	}
 //	
 	@PostMapping("/api/checklist/add")
 	public Ingredient addIngredientToList(
 			@RequestParam("ingredientName")String ingredientName,
+			@RequestParam("drinkListId")Long id,
 //			BindingResult result, 
 			HttpSession session
 			) {
 		
-		DrinkList drinkList = (DrinkList) session.getAttribute("currentDrinkList");
+		DrinkList drinkList = mainService.findDrinkListByID(id);
 		
 		Ingredient ingredient = mainService.findIngredientByName(ingredientName);
-		System.out.println("add " + ingredient.getName() + " to " + drinkList.getName());
 	
-			DrinkListIngredient dLI = new DrinkListIngredient();
-			dLI.setDrinkList(drinkList);
-			dLI.setIngredient(ingredient);
-//			mainService.makeDrinkListIngredientRelationship(dLI);
-			System.out.println(dLI.getDrinkList().getName());
-			System.out.println(drinkList.getIngredients());
-			System.out.println(dLI.getDrinkList().getIngredients());
-			System.out.println(dLI.getIngredient().getName());
-			System.out.println(ingredient.getDrinkLists());
+		DrinkListIngredient dLI = new DrinkListIngredient();
+		dLI.setDrinkList(drinkList);
+		dLI.setIngredient(ingredient);
+		System.out.println("added " + dLI.getIngredient().getName() + " to " + dLI.getDrinkList().getName());
+		mainService.makeDrinkListIngredientRelationship(dLI);
 			
-//		drinkList.getIngredients().add(ingredient);
-//		System.out.println(drinkList.getIngredients().contains(ingredient));
 		return ingredient;
 	}
 	

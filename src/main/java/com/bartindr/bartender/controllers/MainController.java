@@ -5,14 +5,19 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bartindr.bartender.models.DrinkList;
@@ -41,7 +46,7 @@ public class MainController {
 	
 	@GetMapping("/checklist/lists")
 	public String userLists(
-			@ModelAttribute("DrinkList")DrinkList drinkList, 
+			@ModelAttribute("drinkList")DrinkList drinkList, 
 			Model model, 
 			HttpSession session
 			) {
@@ -58,22 +63,37 @@ public class MainController {
 			model.addAttribute("drinkLists", tempList);
 		}
 		
-//		List<DrinkList> dL = (List<DrinkList>) new ArrayList();
-		ArrayList<DrinkList> dL = new ArrayList<DrinkList>();
-//		user.setDrinkLists(dL);
-//		System.out.println(user.getName());
-		System.out.println(dL.size());
+
+		System.out.println(user.getName());
+		System.out.println(user.getDrinkLists());
 		return "drinklists.jsp";
 	}
 	
-	@GetMapping("/checklist")
-	public String checklist(@ModelAttribute("DrinkList")DrinkList drinkList, HttpSession session) {
-		User user = (User) session.getAttribute("user");
-		if(session.getAttribute("currentDrinkList") == null) {
-			String newListName = user.getName() + "'s new list";
-			drinkList.setName(newListName);
-			session.setAttribute("currentDrinkList", drinkList);			
+	@PostMapping("/checklist/create")
+	public String newListMake(
+			@Valid @ModelAttribute("drinkList") DrinkList drinkList, 
+			@RequestParam("userId") Long id,
+			BindingResult result
+			) {
+		if(result.hasErrors()) {
+			return "drinklists.jsp";
+		} else {
+			User user = userService.getUser(id);
+			drinkList.setOwner(user);
+			mainService.createOrUpdateDrinkList(drinkList);
+			Long drinkListId = drinkList.getId();
+			return "redirect:/checklist/" + drinkListId;
 		}
+	}
+	
+	@GetMapping("/checklist/{id}")
+	public String checklist(
+			@PathVariable("id") Long id,
+			Model model,
+			HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		DrinkList drinkList = mainService.findDrinkListByID(id);
+		model.addAttribute("drinkList", drinkList);
 		return "checklist.jsp";
 	}
 	
