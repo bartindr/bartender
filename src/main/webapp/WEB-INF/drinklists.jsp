@@ -6,12 +6,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>BarTindr</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<h1>Hello, <c:out value="${user.name}"/></h1>
-	<form action="/checklist/lists" method="get">
-		<button type="submit">Let's plan out your night?</button>
-	</form>
+	<h1>HELLO FROM LISTS</h1>
+	<c:forEach items="${drinkLists}" var="drinkList">
+		<a href="/checklist">
+			<c:out value="${drinkList.name}" />
+		</a>
+	</c:forEach>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.bartindr.bartender.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,13 +39,41 @@ public class MainController {
 		return "dashboard.jsp";
 	}
 	
+	@GetMapping("/checklist/lists")
+	public String userLists(
+			@ModelAttribute("DrinkList")DrinkList drinkList, 
+			Model model, 
+			HttpSession session
+			) {
+		User user = (User) session.getAttribute("user");
+
+		try {
+			model.addAttribute("drinkLists", user.getDrinkLists());
+		}
+		catch (Exception e) {
+			ArrayList<DrinkList> tempList = new ArrayList<DrinkList>();
+			DrinkList tempDL = new DrinkList();
+			tempDL.setName("You currently have no drink lists. :(");
+			tempList.add(tempDL);
+			model.addAttribute("drinkLists", tempList);
+		}
+		
+//		List<DrinkList> dL = (List<DrinkList>) new ArrayList();
+		ArrayList<DrinkList> dL = new ArrayList<DrinkList>();
+//		user.setDrinkLists(dL);
+//		System.out.println(user.getName());
+		System.out.println(dL.size());
+		return "drinklists.jsp";
+	}
+	
 	@GetMapping("/checklist")
 	public String checklist(@ModelAttribute("DrinkList")DrinkList drinkList, HttpSession session) {
 		User user = (User) session.getAttribute("user");
-		String newListName = user.getName() + "'s new list";
-		drinkList.setName(newListName);
-		session.setAttribute("currentDrinkList", drinkList);
-		System.out.println(drinkList.getName());
+		if(session.getAttribute("currentDrinkList") == null) {
+			String newListName = user.getName() + "'s new list";
+			drinkList.setName(newListName);
+			session.setAttribute("currentDrinkList", drinkList);			
+		}
 		return "checklist.jsp";
 	}
 	

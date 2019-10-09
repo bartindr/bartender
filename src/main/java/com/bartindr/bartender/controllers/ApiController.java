@@ -2,6 +2,8 @@ package com.bartindr.bartender.controllers;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,27 +21,42 @@ public class ApiController {
 	@Autowired
 	private MainService mainService;
 	
+//	@RequestMapping("/api/test")
+//	public void test() throws IOException{
+//		mainService.populateIngredientsDB();
+//	}
+//	
 	@PostMapping("/api/checklist/add")
-	public void addIngredientToList(
+	public Ingredient addIngredientToList(
 			@RequestParam("ingredientName")String ingredientName,
-			@RequestParam("drinkList")DrinkList drinkList,
-			BindingResult result
+//			BindingResult result, 
+			HttpSession session
 			) {
+		
+		DrinkList drinkList = (DrinkList) session.getAttribute("currentDrinkList");
+		
 		Ingredient ingredient = mainService.findIngredientByName(ingredientName);
-		System.out.println(ingredient.getName());
-		System.out.println(result);
-		if(!result.hasErrors()) {
+		System.out.println("add " + ingredient.getName() + " to " + drinkList.getName());
+	
 			DrinkListIngredient dLI = new DrinkListIngredient();
 			dLI.setDrinkList(drinkList);
 			dLI.setIngredient(ingredient);
-			drinkList.setName("ANEM");
-//			System.out.println(drinkList.getIngredients().get(0));
-			System.out.println(dLI.getDrinkList().getName());
 //			mainService.makeDrinkListIngredientRelationship(dLI);
-		}
+			System.out.println(dLI.getDrinkList().getName());
+			System.out.println(drinkList.getIngredients());
+			System.out.println(dLI.getDrinkList().getIngredients());
+			System.out.println(dLI.getIngredient().getName());
+			System.out.println(ingredient.getDrinkLists());
+			
 //		drinkList.getIngredients().add(ingredient);
 //		System.out.println(drinkList.getIngredients().contains(ingredient));
+		return ingredient;
 	}
 	
+	@RequestMapping("/api/test2")
+	public void test2() throws IOException {
+	
+		mainService.populateDrinksDB(mainService.allIngredients());
+	}
 	
 }

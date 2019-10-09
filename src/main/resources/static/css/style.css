@@ -1,0 +1,13 @@
+#checklist-main {
+	display: flex;
+}
+
+#ingredient-search-div {
+	width: 50%;
+}
+
+#currentIngredients {
+	background-color: yellow;
+	min-width: 30%;
+	max-width: 50%;
+}
