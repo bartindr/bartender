@@ -56,7 +56,7 @@ public class MainService {
 	    }    
 	}
 	
-	public void populateDrinksDB(List<Ingredient> ingredients, List<Drink> drinks) throws IOException {
+	public void populateDrinksDB(List<Ingredient> ingredients) throws IOException {
 		
 		for( Ingredient ingredient : ingredients) {
 			URL url = new URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="+ingredient.getName().replace("\"", "").replace(" ", "+"));
@@ -71,8 +71,11 @@ public class MainService {
 			while ((inputLine = in.readLine()) != null) {
 				content.append(inputLine);
 			}
-			System.out.println(content);
 			
+			Gson gson = new Gson();
+		    Type type = new TypeToken<Map<String, Object>>(){}.getType();
+		    Map<String, ArrayList<Object>> myMap = gson.fromJson(content.toString(), type);
+		    System.out.println(myMap);
 		}
 	}
 	
