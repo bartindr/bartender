@@ -14,7 +14,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bartindr.bartender.models.DrinkListIngredient;
 import com.bartindr.bartender.models.Ingredient;
+import com.bartindr.bartender.repositories.DrinkListIngredientRepository;
 import com.bartindr.bartender.repositories.IngredientRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -23,6 +25,8 @@ import com.google.gson.reflect.TypeToken;
 public class MainService {
 	@Autowired
 	private IngredientRepository ingredientRepository;
+	@Autowired
+	private DrinkListIngredientRepository drinkListRepository;
 	
 	public void populateIngredientsDB() throws IOException {
 		URL url = new URL("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list");
@@ -71,11 +75,13 @@ public class MainService {
 		}
 	}
 	
-	
 	public List<String> searchIngredient(String keyword) {
 		System.out.println("Typed");
 		return ingredientRepository.search(keyword);
 	}
 	
+	public DrinkListIngredient makeDrinkListIngredientRelationship(DrinkListIngredient drinkListIngredient) {
+		return drinkListRepository.save(drinkListIngredient);
+	}
 	
 }
