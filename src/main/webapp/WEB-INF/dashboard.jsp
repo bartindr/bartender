@@ -10,8 +10,8 @@
 </head>
 <body>
 	<h1>Hello, <c:out value="${user.name}"/></h1>
-	<form action="/checklist" method="get">
-		<button type="submit">What are you having?</button>
+	<form action="/checklist/lists" method="get">
+		<button type="submit">Let's plan out your night?</button>
 	</form>
 </body>
 </html>

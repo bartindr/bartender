@@ -3,6 +3,7 @@ package com.bartindr.bartender.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,7 +41,7 @@ public class User {
 	private Date createdAt;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
-	@OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<DrinkList> drinkLists;
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(

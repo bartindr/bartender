@@ -15,7 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bartindr.bartender.models.Drink;
+import com.bartindr.bartender.models.DrinkList;
+import com.bartindr.bartender.models.DrinkListIngredient;
 import com.bartindr.bartender.models.Ingredient;
+import com.bartindr.bartender.repositories.DrinkListIngredientRepository;
+import com.bartindr.bartender.repositories.DrinkListRepository;
 import com.bartindr.bartender.repositories.DrinkRepository;
 import com.bartindr.bartender.repositories.IngredientRepository;
 import com.google.gson.Gson;
@@ -26,7 +30,11 @@ public class MainService {
 	@Autowired
 	private IngredientRepository ingredientRepository;
 	@Autowired
-	private DrinkRepository drinkRepo;
+	private DrinkRepository drinkRepository;
+	@Autowired
+	private DrinkListIngredientRepository drinkListIngredientRepository;
+	@Autowired
+	private DrinkListRepository drinkListRepository;
 	
 	public void populateIngredientsDB() throws IOException {
 		URL url = new URL("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list");
@@ -55,7 +63,7 @@ public class MainService {
 	    	}
 	    }    
 	}
-	
+
 	public void populateDrinksDB(List<Ingredient> ingredients) throws IOException {
 		
 		for( Ingredient ingredient : ingredients) {
@@ -78,7 +86,7 @@ public class MainService {
 		    System.out.println(myMap);
 		}
 	}
-	
+
 	//Check db to see if there are any duplicate ingredients. (For future when db gets updated)
 	public Boolean checkExistingIngredient(String name) {
 		Optional<Ingredient> i = ingredientRepository.findByName(name);
@@ -112,7 +120,22 @@ public class MainService {
 	}
 	
 	public DrinkListIngredient makeDrinkListIngredientRelationship(DrinkListIngredient drinkListIngredient) {
-		return drinkListRepository.save(drinkListIngredient);
+		return drinkListIngredientRepository.save(drinkListIngredient);
+	} 
+	
+	//create drinklist
+	public DrinkList createOrUpdateDrinkList(DrinkList drinkList) {
+		return drinkListRepository.save(drinkList);
 	}
+	
+	public DrinkList findDrinkListByID(Long id) {
+		Optional<DrinkList> optionalDrinkList = drinkListRepository.findById(id);
+		if(optionalDrinkList.isPresent()) {
+			return optionalDrinkList.get();
+		} else {
+			return null;
+		}
+	}
+	
 	
 }

@@ -18,6 +18,8 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "ingredients")
 public class Ingredient {
@@ -31,6 +33,7 @@ public class Ingredient {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
 
+    @JsonIgnore
     @ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name="drinks_ingredients",
@@ -39,6 +42,7 @@ public class Ingredient {
 			)
 	private List<Drink> drinks;
     
+    @JsonIgnore
     @ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name="drink_lists_ingredients",
