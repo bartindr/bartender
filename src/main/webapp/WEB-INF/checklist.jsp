@@ -16,11 +16,11 @@
 <body>
 	<h2>Whatd'ya have?</h2>
 	<h3>Check your fridge, pantry, or wherever you stow your "goods".</h3>
-	<form id="ingredientSearchForm" action="/api/checklist/add">
+	<form:form id="ingredientSearchForm" action="/api/checklist/add" modelAttribute="drinkList">
+		<%-- <input type="hidden" name="currentDrinkList" value="${currentDrinkList}"/> --%>
 		<input type="text" name="ingredientName" id="ingredientSearch"/>
-		<input type="hidden" name="drinkList" value="${drinkList}"/>
 		<input type="submit" value="Add"/>
-	</form>
+	</form:form>
 	<script src="/script/app.js"></script>
 </body>
 </html>

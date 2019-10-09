@@ -103,11 +103,13 @@ public class MainService {
 		}
 	}
 	
-	
 	public List<String> searchIngredient(String keyword) {
 		System.out.println("Typed");
 		return ingredientRepository.search(keyword);
 	}
 	
+	public DrinkListIngredient makeDrinkListIngredientRelationship(DrinkListIngredient drinkListIngredient) {
+		return drinkListRepository.save(drinkListIngredient);
+	}
 	
 }
