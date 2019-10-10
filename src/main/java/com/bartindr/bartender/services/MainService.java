@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -15,10 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bartindr.bartender.models.Drink;
+import com.bartindr.bartender.models.DrinkListIngredient;
 import com.bartindr.bartender.models.Ingredient;
+import com.bartindr.bartender.repositories.DrinkListIngredientRepository;
+import com.bartindr.bartender.repositories.DrinkListRepository;
 import com.bartindr.bartender.repositories.DrinkRepository;
 import com.bartindr.bartender.repositories.IngredientRepository;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 @Service
@@ -27,6 +32,10 @@ public class MainService {
 	private IngredientRepository ingredientRepository;
 	@Autowired
 	private DrinkRepository drinkRepo;
+	@Autowired
+	private DrinkListRepository drinkListRepository;
+	@Autowired
+	private DrinkListIngredientRepository drinkListIngredientRepository;
 	
 	public void populateIngredientsDB() throws IOException {
 		URL url = new URL("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list");
@@ -56,8 +65,7 @@ public class MainService {
 	    }    
 	}
 	
-	public void populateDrinksDB(List<Ingredient> ingredients) throws IOException {
-		
+	public List<Drink> populateDrinksDB(List<Ingredient> ingredients, List<Drink> drinks) throws IOException {
 		for( Ingredient ingredient : ingredients) {
 			URL url = new URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="+ingredient.getName().replace("\"", "").replace(" ", "+"));
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -72,11 +80,40 @@ public class MainService {
 				content.append(inputLine);
 			}
 			
-			Gson gson = new Gson();
+			Gson gson = new Gson();	
 		    Type type = new TypeToken<Map<String, Object>>(){}.getType();
 		    Map<String, ArrayList<Object>> myMap = gson.fromJson(content.toString(), type);
-		    System.out.println(myMap);
+		    ArrayList<Object> bevs = myMap.get("drinks");
+//		    System.out.println(bevs);
+		    for( Object bev : bevs ) {
+		    	JsonObject jobj = gson.toJsonTree(bev).getAsJsonObject();
+		    	String name = jobj.get("strDrink").toString();
+		    	Long drinkId = jobj.get("idDrink").getAsLong();
+		    	String imgUrl = jobj.get("strDrinkThumb").toString();
+		    	if(drinks.isEmpty()) {
+		    		drinks.add(new Drink(name, drinkId, imgUrl));
+		    	}
+		    	for(int i = 0; i<drinks.size(); i++) {
+		    		if(drinks.get(i).getDrinkId().equals(drinkId)) {
+    					break;
+    				}
+    				if(i == drinks.size()-1) {
+    					drinks.add(new Drink(name, drinkId, imgUrl));  
+    				}
+    			}
+		    }
+		    
+//			Gson gson = new Gson();
+//			Drink drink = gson.fromJson(content.toString(), Drink.class);
+//			System.out.println(drink);
+//		    Map<String, ArrayList<Object>> myMap = gson.fromJson(content.toString(), type);
 		}
+//		System.out.println(drinks.size());
+//		for(int i = 0; i < drinks.size(); i++ ) {
+//			System.out.println(drinks.get(i).getName());			
+//		}
+		drinkRepo.saveAll(drinks);
+		return drinks;
 	}
 	
 	//Check db to see if there are any duplicate ingredients. (For future when db gets updated)
@@ -112,7 +149,11 @@ public class MainService {
 	}
 	
 	public DrinkListIngredient makeDrinkListIngredientRelationship(DrinkListIngredient drinkListIngredient) {
-		return drinkListRepository.save(drinkListIngredient);
+		return drinkListIngredientRepository.save(drinkListIngredient);
+	}
+	
+	public List<Drink> getAllDrinks() {
+		return drinkRepo.findAll();
 	}
 	
 }
