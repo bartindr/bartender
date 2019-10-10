@@ -55,4 +55,9 @@ public class ApiController {
 		return mainService.populateDrinksDB(mainService.allIngredients(), mainService.getAllDrinks());
 	}
 	
+	@RequestMapping("/api/test3")
+	public void test3() throws IOException {
+		mainService.addIngredientsToDrinks(mainService.getAllDrinks());
+	}
+	
 }
