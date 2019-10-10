@@ -7,7 +7,6 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -31,11 +30,11 @@ public class MainService {
 	@Autowired
 	private IngredientRepository ingredientRepository;
 	@Autowired
-	private DrinkRepository drinkRepo;
-	@Autowired
-	private DrinkListRepository drinkListRepository;
-	@Autowired
-	private DrinkListIngredientRepository drinkListIngredientRepository;
+	private DrinkRepository drinkRepository;
+ 	@Autowired
+ 	private DrinkListIngredientRepository drinkListIngredientRepository;
+ 	@Autowired
+ 	private DrinkListRepository drinkListRepository;
 	
 	public void populateIngredientsDB() throws IOException {
 		URL url = new URL("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list");
@@ -112,7 +111,7 @@ public class MainService {
 //		for(int i = 0; i < drinks.size(); i++ ) {
 //			System.out.println(drinks.get(i).getName());			
 //		}
-		drinkRepo.saveAll(drinks);
+		drinkRepository.saveAll(drinks);
 		return drinks;
 	}
 	
@@ -153,7 +152,7 @@ public class MainService {
 	}
 	
 	public List<Drink> getAllDrinks() {
-		return drinkRepo.findAll();
+		return drinkRepository.findAll();
 	}
 	
 }
