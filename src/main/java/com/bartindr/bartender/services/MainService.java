@@ -36,7 +36,7 @@ public class MainService {
  	private DrinkListIngredientRepository drinkListIngredientRepository;
  	@Autowired
  	private DrinkListRepository drinkListRepository;
-	
+
 	public void populateIngredientsDB() throws IOException {
 		URL url = new URL("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list");
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -115,7 +115,7 @@ public class MainService {
 		drinkRepository.saveAll(drinks);
 		return drinks;
 	}
-	
+
 	//Check db to see if there are any duplicate ingredients. (For future when db gets updated)
 	public Boolean checkExistingIngredient(String name) {
 		Optional<Ingredient> i = ingredientRepository.findByName(name);
@@ -159,5 +159,15 @@ public class MainService {
 	public List<Drink> getAllDrinks() {
 		return drinkRepository.findAll();
 	}
+		
+	public DrinkList findDrinkListByID(Long id) {
+		Optional<DrinkList> optionalDrinkList = drinkListRepository.findById(id);
+		if(optionalDrinkList.isPresent()) {
+			return optionalDrinkList.get();
+		} else {
+			return null;
+		}
+	}
+	
 	
 }

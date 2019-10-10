@@ -3,6 +3,8 @@ package com.bartindr.bartender.controllers;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,27 +27,26 @@ public class ApiController {
 	public void test() throws IOException{
 		mainService.populateIngredientsDB();
 	}
-	
+//	
 	@PostMapping("/api/checklist/add")
-	public void addIngredientToList(
+	public Ingredient addIngredientToList(
 			@RequestParam("ingredientName")String ingredientName,
-			@RequestParam("drinkList")DrinkList drinkList,
-			BindingResult result
+			@RequestParam("drinkListId")Long id,
+//			BindingResult result, 
+			HttpSession session
 			) {
+		
+		DrinkList drinkList = mainService.findDrinkListByID(id);
+		
 		Ingredient ingredient = mainService.findIngredientByName(ingredientName);
-		System.out.println(ingredient.getName());
-		System.out.println(result);
-		if(!result.hasErrors()) {
-			DrinkListIngredient dLI = new DrinkListIngredient();
-			dLI.setDrinkList(drinkList);
-			dLI.setIngredient(ingredient);
-			drinkList.setName("ANEM");
-//			System.out.println(drinkList.getIngredients().get(0));
-			System.out.println(dLI.getDrinkList().getName());
-//			mainService.makeDrinkListIngredientRelationship(dLI);
-		}
-//		drinkList.getIngredients().add(ingredient);
-//		System.out.println(drinkList.getIngredients().contains(ingredient));
+	
+		DrinkListIngredient dLI = new DrinkListIngredient();
+		dLI.setDrinkList(drinkList);
+		dLI.setIngredient(ingredient);
+		System.out.println("added " + dLI.getIngredient().getName() + " to " + dLI.getDrinkList().getName());
+		mainService.makeDrinkListIngredientRelationship(dLI);
+			
+		return ingredient;
 	}
 	
 	@RequestMapping("/api/test2")
