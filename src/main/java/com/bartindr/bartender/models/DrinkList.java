@@ -20,6 +20,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="drinklists")
 public class DrinkList {
@@ -34,11 +36,12 @@ public class DrinkList {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
 	
-	
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User owner;
 	
+	@JsonIgnore
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name="drink_lists_drinks",
@@ -47,6 +50,7 @@ public class DrinkList {
 			)
 	private List<Drink> drinks;
 	
+	@JsonIgnore
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name="drink_lists_ingredients",
