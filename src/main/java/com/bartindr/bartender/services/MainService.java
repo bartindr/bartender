@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bartindr.bartender.models.Drink;
+import com.bartindr.bartender.models.DrinkList;
 import com.bartindr.bartender.models.DrinkListIngredient;
 import com.bartindr.bartender.models.Ingredient;
 import com.bartindr.bartender.repositories.DrinkListIngredientRepository;
@@ -149,6 +150,10 @@ public class MainService {
 	
 	public DrinkListIngredient makeDrinkListIngredientRelationship(DrinkListIngredient drinkListIngredient) {
 		return drinkListIngredientRepository.save(drinkListIngredient);
+	}
+	
+	public DrinkList createOrUpdateDrinkList(DrinkList drinkList) {
+ 		return drinkListRepository.save(drinkList);
 	}
 	
 	public List<Drink> getAllDrinks() {
