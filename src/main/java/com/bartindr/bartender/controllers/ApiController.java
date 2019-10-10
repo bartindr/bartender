@@ -1,6 +1,7 @@
 package com.bartindr.bartender.controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bartindr.bartender.models.Drink;
 import com.bartindr.bartender.models.DrinkList;
 import com.bartindr.bartender.models.DrinkListIngredient;
 import com.bartindr.bartender.models.Ingredient;
@@ -48,9 +50,9 @@ public class ApiController {
 	}
 	
 	@RequestMapping("/api/test2")
-	public void test2() throws IOException {
+	public List<Drink> test2() throws IOException {
 	
-		mainService.populateDrinksDB(mainService.allIngredients());
+		return mainService.populateDrinksDB(mainService.allIngredients(), mainService.getAllDrinks());
 	}
 	
 }

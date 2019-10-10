@@ -64,6 +64,12 @@ public class Drink {
     public Drink() {
     	// constructor
     }
+    
+    public Drink(String name, Long drinkId, String imgUrl) {
+    	this.name = name;
+    	this.drinkId = drinkId;
+    	this.imgUrl = imgUrl;
+    }
         
     public Long getId() {
 		return id;
