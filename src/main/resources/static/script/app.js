@@ -71,7 +71,6 @@ $(document).ready(function() {
 		
 		
 	})
-
 	
 //	$(".delete-ingredient").submit(function(e) {
 //		console.log("IN AJAX DELETE")
@@ -98,6 +97,8 @@ $(document).ready(function() {
 //		e.preventDefault();
 //		return false;
 //	})
+
+/* AJAX CALL TO RETRIEVE DRINK LIST FILTER */
 
 	
 });

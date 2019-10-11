@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bartindr.bartender.models.Drink;
 import com.bartindr.bartender.models.DrinkList;
+import com.bartindr.bartender.models.Ingredient;
 import com.bartindr.bartender.models.User;
 import com.bartindr.bartender.services.MainService;
 import com.bartindr.bartender.services.UserService;
@@ -101,5 +103,52 @@ public class MainController {
 	@ResponseBody
 	public List<String> search(HttpServletRequest request){
 		return mainService.searchIngredient(request.getParameter("term"));
+	}
+	
+	@GetMapping("/checklist/{drinkListId}/generateList")
+	public String generateList(
+			@PathVariable("drinkListId")Long drinkListId,
+			Model model
+			) {
+		DrinkList drinkList = mainService.findDrinkListByID(drinkListId);
+		List<Ingredient> ingredients = (List<Ingredient>) drinkList.getIngredients();
+//		ArrayList<Long> drinkIds = new ArrayList<Long>();
+//		ArrayList<Drink> drinks = new ArrayList<Drink>();
+		
+//		for(int index = 0; index < ingredients.size(); index++) {
+//			Long ingredientId = ingredients.get(index).getId();
+//			List<Long> ingredientDrinkIds = mainService.drinksByIngredientId(ingredientId);
+//			for(Long drinkId : ingredientDrinkIds) {
+//				if(!drinkIds.contains(drinkId)) {
+//					drinkIds.add(drinkId);					
+//					Drink drink = mainService.findByDrinkId(drinkId);
+//					
+//					// SAVING TO DB
+////					try {
+////						if(!drinkList.getDrinks().contains(drink)) {
+////							DrinkListDrink dLD = new DrinkListDrink();
+////							dLD.setDrink(drink);
+////							dLD.setDrinkList(drinkList);
+////							mainService.makeDrinkListDrinkRelationship(dLD);
+////						}
+////					} catch (Exception e) {
+////						System.out.println("no drinks list instantiated");
+////					}
+//					
+//					//TEMP 
+//					if(!drinks.contains(drink)) {
+//						drinks.add(drink);
+//					}
+//				}
+//			}
+//		}
+		List<Drink> drinks = mainService.findDrinksByIngredients(ingredients);
+//		
+		model.addAttribute("drinks", drinks);
+		System.out.println(drinks.toString());
+		System.out.println(drinks.get(0).getName());
+//		System.out.println(drinkList.getDrinks().toString());
+//		return the drink list based on the ingredients
+		return "drinkListResult.jsp";
 	}
 }

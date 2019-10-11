@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
 @Table(name = "drinks_ingredients")
@@ -29,10 +31,12 @@ public class DrinkIngredient {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
     
+//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "drink_id")
 	private Drink drink;
     
+//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;

@@ -13,14 +13,22 @@
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
 <meta charset="UTF-8">
-<title>BarTindr</title>
+<title>Drink List Result</title>
 </head>
 <body>
-	<div class="dash-header">
-		<h1>Hello, <c:out value="${user.name}"/></h1>
-	</div>
-	<form action="/checklist/lists" method="get">
-		<button type="submit">Let's plan out your night?</button>
-	</form>
+	<c:forEach items="${drinks}" var="drink">
+		<ul>
+			<li>
+				<c:out value="${drink.name}"/>
+				<ul>
+					<c:forEach items="${drink.ingredients}" var="ingredient">
+						<li>
+							<c:out value="${ingredient.name}" />
+						</li>
+					</c:forEach>
+				</ul>
+			</li>
+		</ul>
+	</c:forEach>
 </body>
 </html>
