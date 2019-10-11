@@ -109,8 +109,8 @@ public class ApiController {
 	}
 	
 	@RequestMapping("api/test5")
-	public Map<String, ArrayList<Object>> test5() throws IOException {
-		return mainService.getDrinkJsonObject((long) 11007);
+	public Map<String, ArrayList<Object>> test5(long id) throws IOException {
+		return mainService.getDrinkJsonObject(id);
 	}
 	
 	@DeleteMapping("/checklist/api/{id}/delete/{ingId}")
