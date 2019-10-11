@@ -37,7 +37,7 @@ public class Ingredient {
     @ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name="drinks_ingredients",
-			joinColumns = @JoinColumn(name = "ingredient"),
+			joinColumns = @JoinColumn(name = "ingredient_id"),
 			inverseJoinColumns = @JoinColumn(name = "drink_id")
 			)
 	private List<Drink> drinks;
