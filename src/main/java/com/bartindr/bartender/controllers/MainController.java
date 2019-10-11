@@ -108,8 +108,11 @@ public class MainController {
 	@GetMapping("/checklist/{drinkListId}/generateList")
 	public String generateList(
 			@PathVariable("drinkListId")Long drinkListId,
-			Model model
+			Model model,
+			HttpSession session
 			) {
+		User user = (User) session.getAttribute("user");
+
 		DrinkList drinkList = mainService.findDrinkListByID(drinkListId);
 		List<Ingredient> ingredients = (List<Ingredient>) drinkList.getIngredients();
 //		ArrayList<Long> drinkIds = new ArrayList<Long>();

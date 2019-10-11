@@ -323,6 +323,48 @@ a:focus, a:hover { text-decoration: none; color: #f85759; }
   box-shadow: 3px 3px 5px 0px #c2ac7c;
 }
 
-.ui-autocomplete {
+.ui-menu, .ui-menu-item a {
 	background-color: #FFF;
+	color: #000;
+}
+
+/* DRINKS RESULTS */
+
+#drink-list-results {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.drink-card {
+	margin: 1%;
+	box-shadow: 3px 3px 5px 0px #c2ac7c;
+	width: 30%;
+	height: 400px;
+	
+}
+
+.drink-card h3 {
+	width: 100%;
+}
+.drink-card-img {
+	height: 80%;
+	background-size: cover;
+}
+
+/*  */
+
+.show-card {
+	margin: 1%;
+	box-shadow: 3px 3px 5px 0px #c2ac7c;
+	width: 80%;
+	height: 400px;
+}
+
+#show-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: cneter;
+	align-items: center;
 }

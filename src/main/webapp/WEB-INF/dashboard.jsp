@@ -53,7 +53,7 @@
 						<div class="section-title mb-0">
 							<form class="dash-main" action="/checklist/lists" method="get">
 								<h2>Let's plan out your night.</h2>
-								<p>(or day, it's a night in somewhere in the world right?)</p>
+								<p>(or day, it's a "night in" somewhere in the world right?)</p>
 								<button class="btnSubmit dash-btn" type="submit">Let's go!</button>
 							</form>
 						</div>
