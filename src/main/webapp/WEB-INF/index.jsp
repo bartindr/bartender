@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="css/style.css" />
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -18,87 +19,55 @@
 	crossorigin="anonymous"></script>
 <title>BarTindr</title>
 </head>
-<body>
-	<div id="auth_container">
-		<div id="register_form">
-			<h1>Register</h1>
-			<!-- make form:form for register -->
-			<form:form action="/user/register" method="post" modelAttribute="user">
-				<table>
-					<tbody>
-						<tr>
-							<td>
-								<form:label path="name">Name:</form:label>
-							</td>
-							<td>
-								<form:input path="name" type="text"/>
-								<form:errors path="name"></form:errors>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<form:label path="email">Email:</form:label>
-							</td>
-							<td>
-								<form:input path="email" type="email"/>
-								<form:errors path="email"></form:errors>						
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<form:label path="password">Password:</form:label>
-							</td>
-							<td>
-								<form:input path="password" type="password"/>
-								<form:errors path="password"></form:errors>						
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<form:label path="passwordConfirmation">Password Conf:</form:label>
-							</td>
-							<td>
-								<form:input path="passwordConfirmation" type="password"/>
-							</td>
-							<td>							
-								<p style="color:red;"><c:out value="${errorPw}"/></p>				
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<input type="submit" value="Register"/>
-			</form:form>
-			<!-- contains: name, email, password, and confirmation -->
-		</div>
-		<div id="login_form">
-			<h1>Login</h1>
+<body id="container" class="login-container">
+	<div id="logo">
+		<h1 id="logo-text">BarTindr</h1>
+	</div>
+	<div id="auth_container" class="row">
+		<div id="login_form" class="col-md-6 login-form-2">
+			<h3>Login</h3>
 			<!-- make form:form for login -->
 			<form action="/user/login" method="post">
-				<table>
-					<tbody>
-						<tr>
-							<td>
-								<label for="email">Email</label>
-							</td>
-							<td>							
-								<input type="email" id="email" name="email"/>													
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label for="password">Password</label>
-							</td>
-							<td>
-								<input type="password" id="password" name="password"/>						
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="form-group">		
+						<input type="email" id="email" name="email" placeholder="Your e-mail"/>		
+				</div>
+				<div class="form-group">
+						<input type="password" id="password" name="password" placeholder="Your password *"/>
+				</div>
 				<p style="color:red;"><c:out value="${errorLogin}"/></p>	
-				<input type="submit" value="Login"/>
+				<div class="login-button-div">
+					<input class="btnSubmit" type="submit" value="Login"/>
+				</div>
 			</form>
 			<!-- contains email and password -->
 		</div>
+		<div id="register_form" class="col-md-6 login-form-1">
+			<h3>Register</h3>
+			<!-- make form:form for register -->
+			<form:form action="/user/register" method="post" modelAttribute="user">
+				<div class="form-group">
+						<form:input path="name" type="text" placeholder="Your name *"/>
+						<form:errors path="name"></form:errors>
+				</div>
+				<div class="form-group">
+						<form:input path="email" type="email" placeholder="Your e-mail *"/>
+						<form:errors path="email"></form:errors>	
+				</div>
+				<div class="form-group">
+						<form:input path="password" type="password" placeholder="Your password *"/>
+						<form:errors path="password"></form:errors>		
+				</div>
+				<div class="form-group">
+						<form:input path="passwordConfirmation" type="password" placeholder="re-enter password *"/>
+						<p style="color:red;"><c:out value="${errorPw}"/></p>	
+				</div>
+				<div class="login-button-div">
+					<input class="btnSubmit" type="submit" value="Register"/>
+				</div>
+			</form:form>
+			<!-- contains: name, email, password, and confirmation -->
+		</div>
+
 	</div>
 </body>
 </html>
