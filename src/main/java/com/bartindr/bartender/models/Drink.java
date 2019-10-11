@@ -38,7 +38,7 @@ public class Drink {
     
     @ManyToMany(fetch=FetchType.LAZY)
    	@JoinTable(
-   			name="users_dricks",
+   			name="favorites",
    			joinColumns = @JoinColumn(name = "drink_id"),
    			inverseJoinColumns = @JoinColumn(name = "user_id")
    			)
