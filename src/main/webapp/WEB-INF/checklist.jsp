@@ -55,8 +55,8 @@
 					</tr>
 				</tbody>
 			</table>
-			<form action="">
-				<input type="hidden" name="list" value="${drinkList.id}"/>
+			<form action="/checklist/${drinkList.id}/generateList" method="GET">
+				<%-- <input type="hidden" name="list" value="${drinkList.id}"/> --%>
 				<input id="submit-checklist" type="submit" value="Let's see what we can do" />
 			</form>
 		</div>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bartindr.bartender.models.Drink;
+import com.bartindr.bartender.models.DrinkIngredient;
 import com.bartindr.bartender.models.DrinkList;
 import com.bartindr.bartender.models.DrinkListIngredient;
 import com.bartindr.bartender.models.Ingredient;
@@ -34,6 +36,33 @@ public class ApiController {
 	public void test() throws IOException{
 		mainService.populateIngredientsDB();
 	}
+	
+	@GetMapping("/api/drinks")
+	public List<Drink> getAllDrinks(){
+		return mainService.allDrinks();
+	}
+	
+	@GetMapping("/api/drinkIngredientRelationships")
+	public List<DrinkIngredient> getDIrelationshipsByIngredient(@RequestParam("ingredientName")String ingredientName){
+		Ingredient ingredient = mainService.findIngredientByName(ingredientName);
+		return mainService.drinksIngredientsByIngredient(ingredient);
+	}
+	
+	@GetMapping("/api/drinkIngredientRelationshipsById")
+	public List<DrinkIngredient> getDIrelationshipsByIngredient(@RequestParam("ingredientId")Long id){
+		return mainService.drinksIngredientsByIngredientId(id);
+	}
+	
+	@GetMapping("/api/drinkByIngredientId")
+	public List<Long> getDrinkByIngredientId(@RequestParam("ingredientId")Long ingredientId){
+		return mainService.drinksByIngredientId(ingredientId);
+	}
+	
+	@GetMapping("/api/drinkId")
+	public Drink findByDrinkId(@RequestParam("drinkId")Long drinkId) {
+		return mainService.findByDrinkId(drinkId);
+	}
+	
 //	
 	@PostMapping("/api/checklist/add")
 	public DrinkListIngredient addIngredientToList(

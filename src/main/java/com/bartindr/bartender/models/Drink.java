@@ -18,6 +18,8 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="drinks")
 public class Drink {
@@ -36,6 +38,7 @@ public class Drink {
     
     //REALTIONSHIP MAPPING
     
+//    @JsonIgnore
     @ManyToMany(fetch=FetchType.LAZY)
    	@JoinTable(
    			name="favorites",
@@ -44,6 +47,7 @@ public class Drink {
    			)
    	private List<User> users;
     
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToMany(fetch=FetchType.LAZY)
    	@JoinTable(
    			name="drinks_ingredients",
@@ -52,7 +56,7 @@ public class Drink {
    			)
    	private List<Ingredient> ingredients;
        
-    
+//    @JsonIgnore
     @ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name="drink_lists_drink",

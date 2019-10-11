@@ -18,9 +18,11 @@ import org.springframework.stereotype.Service;
 import com.bartindr.bartender.models.Drink;
 import com.bartindr.bartender.models.DrinkIngredient;
 import com.bartindr.bartender.models.DrinkList;
+import com.bartindr.bartender.models.DrinkListDrink;
 import com.bartindr.bartender.models.DrinkListIngredient;
 import com.bartindr.bartender.models.Ingredient;
 import com.bartindr.bartender.repositories.DrinkIngredientRepository;
+import com.bartindr.bartender.repositories.DrinkListDrinkRepository;
 import com.bartindr.bartender.repositories.DrinkListIngredientRepository;
 import com.bartindr.bartender.repositories.DrinkListRepository;
 import com.bartindr.bartender.repositories.DrinkRepository;
@@ -41,6 +43,8 @@ public class MainService {
  	private DrinkListRepository drinkListRepository;
  	@Autowired
  	private DrinkIngredientRepository drinkIngredientRepository;
+ 	@Autowired 
+ 	private DrinkListDrinkRepository drinkListDrinkRepository;
 
 	public void populateIngredientsDB() throws IOException {
 		URL url = new URL("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list");
@@ -263,5 +267,34 @@ public class MainService {
 			return null;
 		}
 	}
+	
+	public List<Drink> allDrinks(){
+		return drinkRepository.findAll();
+	}
+	
+	public List<Drink> findDrinksByIngredients(List<Ingredient> ingredients) {
+		return drinkRepository.findByIngredientsIn(ingredients);
+	}
+	
+	public List<DrinkIngredient> drinksIngredientsByIngredient(Ingredient ingredient) {
+		return drinkIngredientRepository.findByIngredient(ingredient);
+	}
+	
+	public List<DrinkIngredient> drinksIngredientsByIngredientId(Long id){
+		return drinkIngredientRepository.findDrinkIngredientNative(id);
+	}
+	
+	public List<Long> drinksByIngredientId(Long ingredientId){
+		return drinkRepository.findDrinksByIngredientId(ingredientId);
+	}
+	
+	public Drink findByDrinkId(Long drinkId) {
+		return drinkRepository.findByDrinkId(drinkId);
+	}
+	
+	public DrinkListDrink makeDrinkListDrinkRelationship(DrinkListDrink drinkListDrink) {
+		return drinkListDrinkRepository.save(drinkListDrink);
+	}
+	
 	
 }
