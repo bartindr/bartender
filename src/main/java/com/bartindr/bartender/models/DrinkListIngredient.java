@@ -30,11 +30,12 @@ public class DrinkListIngredient {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
     
-	
+//	@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "drink_list_id")
 	private DrinkList drinkList;
-	
+
+//    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;

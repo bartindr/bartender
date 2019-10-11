@@ -189,7 +189,7 @@ a:focus, a:hover { text-decoration: none; color: #f85759; }
                  0px 24px 2px rgba(0,0,0,0.1),
                  0px 34px 30px rgba(0,0,0,0.1);
 }
-
+ 
 #header-logo a{
 	color: #FFF;
 }
@@ -199,9 +199,57 @@ a:focus, a:hover { text-decoration: none; color: #f85759; }
 	text-decoration: none;
 }
 
+/* DRINK LISTS */
+
+.drink-lists-header {
+	background: url(https://bartindr.s3.us-west-1.amazonaws.com/champagne-2335596_1920.jpg)no-repeat;
+}
+
+#drink-lists-container {
+	display: flex;
+	flex-direction: column;
+	/* justify-content: flex-start; */
+	align-items: flex-start;
+}
+
+#drinkList {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+#new-list-name-input {
+	width: 250px;
+}
+
+#make-new-list-form{
+	margin-top: 75px;
+	margin-bottom: 50px;
+}
+
+#drink-lists-list {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+	background-color: #e5e5ff;
+
+	-webkit-box-shadow: 0 8px 6px -6px black;
+	   -moz-box-shadow: 0 8px 6px -6px black;
+	        box-shadow: 0 8px 6px -6px black;
+}
+
+#drink-lists-list-head  {
+	display: flex;
+	justify-content: center;
+}
+
+
 /* CHECK LIST */
 
-#checklist-main {
+/* #checklist-main {
 	display: flex;
 }
 
@@ -228,4 +276,53 @@ a:focus, a:hover { text-decoration: none; color: #f85759; }
 .delete-list-item {
 	font-weight: bold;
 	font-size: 19px;
+} */
+
+.check-list-header {
+	background: url(https://bartindr.s3.us-west-1.amazonaws.com/bar-2685155_1920.jpg)no-repeat;
+	background-size: cover;
+}
+
+#check-lists-list {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	color: #000;
+
+	background-color: #fdfd96;
+
+	-webkit-box-shadow: 0 8px 6px -6px black;
+	   -moz-box-shadow: 0 8px 6px -6px black;
+					box-shadow: 0 8px 6px -6px black;
+	margin-bottom: 50px;
+}
+
+.delete-list-item {
+	font-weight: bold;
+	font-size: 19px;
+	background: none;
+	border: none;
+	font-family: comic sans ms;
+}
+
+.checklist-delete-td {
+	display: flex;
+	justify-content: center;
+}
+
+#submit-checklist {
+	border-radius: 1rem;
+	padding: 2%;
+	margin: 5% 0;
+	border: none;
+	cursor: pointer;
+	font-weight: 600;
+	color: #000;
+	background-color: #f7dc70;
+  box-shadow: 3px 3px 5px 0px #c2ac7c;
+}
+
+.ui-autocomplete {
+	background-color: #FFF;
 }

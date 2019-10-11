@@ -41,7 +41,8 @@ public class User {
 	private Date createdAt;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
-	@OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	
+	@OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<DrinkList> drinkLists;
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(

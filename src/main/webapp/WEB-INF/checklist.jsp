@@ -13,54 +13,110 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../css/style.css" />
 <title>Ingredient Checklist</title>
 </head>
 <body id="checklist-container">
-	<h2>What do you have,  <c:out value="${user.name}"/>?</h2>
-	<h3>Show us the goods.</h3>
-	<div id="checklist-main">
-		<div id="ingredient-search-div">
-			<form id="ingredientSearchForm" action="/api/checklist/add" method="POST">
-				<%-- <input type="hidden" name="currentDrinkList" value="${currentDrinkList}"/> --%>
-				<input type="text" name="ingredientName" id="ingredientSearch"/>
-				<input type="hidden" name="drinkListId" value="${drinkList.id}"/>
-				<input type="submit" value="Add"/>
-			</form>
+	<div class="page-header check-list-header">
+		<div class="nav">
+			<h2 id="header-logo">
+				<a href="/dashboard">BarTindr</a>
+			</h2>
+			<ul>
+				<li>
+					<a href="/checklist/lists">Your DrinkLists</a>
+				</li>
+				<li>
+					<a href="/dashboard">
+						<c:out value="${user.name}" />
+					</a>
+				</li>
+			</ul>
 		</div>
-		<div id="current-ingredients-div">
-			<table id="current-ingredients-table">
-				<thead>
-					<tr>
-						<th>Ingredient</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${drinkList.ingredients}" var="ingredient">
-							<tr id='checklist_ingredient_${ingredient.id}'>
-								<td>${fn:replace(ingredient.name, '\"', '')}</td>
-								<td>
-									<form id="ingredient-form-${ingredient.id}" class="delete-ingredient" action="api/${drinkList.id}/delete/${ingredient.id}" method="POST">
-										<input type="hidden" name="_method" value="delete"/>
-										<input type="hidden" name="drinkListId" value="${drinkList.id}"/>
-										<input type="hidden" name="ingredientId" value="${ingredient.id}"/>
-										<input type="submit" data-form-id="ingredient-form-${ingredient.id}" class="delete-list-item" value="X" />
-									</form>
-								</td>
-							</tr>
-					</c:forEach>
-					<tr>
-						<td>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<form action="/checklist/${drinkList.id}/generateList" method="GET">
-				<%-- <input type="hidden" name="list" value="${drinkList.id}"/> --%>
-				<input id="submit-checklist" type="submit" value="Let's see what we can do" />
-			</form>
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="page-caption">
+						<h1 class="page-title"><c:out value="${drinkList.name}"/></h1>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
+	<!-- PAGE MAIN -->
+	
+	<div id="checklist-main" class="section-section">
+		<div class="container">
+			<div class="card-block bg-white mb30 page-main-container">
+				<div class="row">
+					<div class="page-main-body col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<div id="drink-lists-container" class="section-title mb-0">
+								<div id="make-new-list-form">
+									<h2>What do you have,  <c:out value="${user.name}"/>?</h2>
+									<h3>Show us the goods.</h3>
+								
+									<div id="ingredient-search-div">
+										<form id="ingredientSearchForm" action="/api/checklist/add" method="POST">
+											<%-- <input type="hidden" name="currentDrinkList" value="${currentDrinkList}"/> --%>
+											<input type="text" name="ingredientName" id="ingredientSearch"/>
+											<input type="hidden" name="drinkListId" value="${drinkList.id}"/>
+											<input type="submit" value="Add"/>
+										</form>
+									</div>
+								</div>
+								
+								<div id="check-lists-list">
+									<div id="current-ingredients-div">
+										<table id="current-ingredients-table">
+											<thead>
+												<tr>
+													<th>Ingredient</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${drinkList.ingredients}" var="ingredient">
+														<tr id='checklist_ingredient_${ingredient.id}'>
+															<td>${fn:replace(ingredient.name, '\"', '')}</td>
+															<td class="checklist-delete-td">
+																<form id="ingredient-form-${ingredient.id}" class="delete-ingredient" action="api/${drinkList.id}/delete/${ingredient.id}" method="POST">
+																	<input type="hidden" name="_method" value="delete"/>
+																	<input type="hidden" name="drinkListId" value="${drinkList.id}"/>
+																	<input type="hidden" name="ingredientId" value="${ingredient.id}"/>
+																	<input type="submit" data-form-id="ingredient-form-${ingredient.id}" class="delete-list-item" value="X" />
+																</form>
+															</td>
+														</tr>
+												</c:forEach>
+												<tr>
+													<td>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<form action="/checklist/${drinkList.id}/generateList" method="GET">
+											<%-- <input type="hidden" name="list" value="${drinkList.id}"/> --%>
+											<input id="submit-checklist" type="submit" value="Let's see what we can do" />
+										</form>
+									</div>
+								</div>
+								
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	
 	<!-- SCRIPT SRC -->
 	<script src="/script/app.js"></script>
