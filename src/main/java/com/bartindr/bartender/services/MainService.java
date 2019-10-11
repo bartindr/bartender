@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -138,46 +139,71 @@ public class MainService {
 		    
 		    for( Object bev : bevs ) {
 		    	JsonObject jobj = gson.toJsonTree(bev).getAsJsonObject();
-//		    	List<Ingredient> ingredients = (List<Ingredient>)new ArrayList<Ingredient>();
-		    	List<Ingredient> ingredients = new ArrayList<Ingredient>();
+
 		    	for(int i = 1; i <= 15; i++) {
 		    		if(jobj.get("strIngredient"+i)!=null) {
-//		    			try {
-//		    				ingredientMap.put(jobj.get("strIngredient"+i).toString(), jobj.get("strMeasure"+i).toString());		    					    				
-//		    			} catch(Exception e) {
-//		    				ingredientMap.put(jobj.get("strIngredient"+i).toString(), "");
-//		    			}
 		    			DrinkIngredient dI = new DrinkIngredient();
 		    			Drink dr = this.findDrinkByName(jobj.get("strDrink").toString());
 		    			dI.setIngredient(this.findIngredientByName(jobj.get("strIngredient"+i).toString()));
 		    			dI.setDrink(dr);
 		    			drinkIngredientRepository.save(dI);
-//		    			ingredients.add(this.findIngredientByName(jobj.get("strIngredient"+i).toString()));
 		    		} 
 		    		if(jobj.get("strIngredient"+i)==null) {
 		    			break;
 		    		}
 		    	}
-//		    	ingredientMap.put(jobj.get("strIngredient2").toString(), jobj.get("strMeasure2").toString());
-//		    	ingredientMap.put(jobj.get("strIngredient3").toString(), jobj.get("strMeasure3").toString());
-//		    	ingredientMap.put(jobj.get("strIngredient4").toString(), jobj.get("strMeasure4").toString());
-//		    	ingredientMap.put(jobj.get("strIngredient5").toString(), jobj.get("strMeasure5").toString());
-//		    	ingredientMap.put(jobj.get("strIngredient6").toString(), jobj.get("strMeasure6").toString());
-//		    	ingredientMap.put(jobj.get("strIngredient7").toString(), jobj.get("strMeasure7").toString());
-//		    	ingredientMap.put(jobj.get("strIngredient8").toString(), jobj.get("strMeasure8").toString());
-//		    	ingredientMap.put(jobj.get("strIngredient9").toString(), jobj.get("strMeasure9").toString());
-//		    	ingredientMap.put(jobj.get("strIngredient10").toString(), jobj.get("strMeasure10").toString());
-//		    	ingredientMap.put(jobj.get("strIngredient11").toString(), jobj.get("strMeasure11").toString());
-//		    	ingredientMap.put(jobj.get("strIngredient12").toString(), jobj.get("strMeasure12").toString());
-//		    	ingredientMap.put(jobj.get("strIngredient13").toString(), jobj.get("strMeasure13").toString());
-//		    	ingredientMap.put(jobj.get("strIngredient14").toString(), jobj.get("strMeasure14").toString());
-//		    	ingredientMap.put(jobj.get("strIngredient15").toString(), jobj.get("strMeasure15").toString());
-//		    	System.out.println(ingredientMap);
 		    }
 		    
 		}
 	}
 	
+	public String getDrinkJson(Long drinkId) throws IOException {
+		URL url = new URL("https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkId);
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		con.setRequestMethod("GET");
+		con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+		
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer content = new StringBuffer();
+		
+		while ((inputLine = in.readLine()) != null) {
+			content.append(inputLine);
+		}
+		
+		Gson gson = new Gson();	
+	    Type type = new TypeToken<Map<String, Object>>(){}.getType();
+	    Map<String, ArrayList<Object>> myMap = gson.fromJson(content.toString(), type);
+	    ArrayList<Object> bevs = myMap.get("drinks");
+	    JsonObject jobj = gson.toJsonTree(bevs.get(0)).getAsJsonObject();
+	    return jobj.get("strInstructions").toString();
+	}
+	
+	public Map<String, ArrayList<Object>> getDrinkJsonObject(Long drinkId) throws IOException {
+		URL url = new URL("https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkId);
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		con.setRequestMethod("GET");
+		con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+		
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer content = new StringBuffer();
+		
+		while ((inputLine = in.readLine()) != null) {
+			content.append(inputLine);
+		}
+		
+		Gson gson = new Gson();
+	    Type type = new TypeToken<Map<String, Object>>(){}.getType();
+	    
+	    Map<String, ArrayList<Object>> myMap = gson.fromJson(content.toString(), type);
+//	    ArrayList<Object> drink = myMap.get("drinks");
+	    return myMap;
+	    
+	    
+	    
+//	    return gson.toJson(drink.get(0));
+	}
 	
 
 	//Check db to see if there are any duplicate ingredients. (For future when db gets updated)

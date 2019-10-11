@@ -1,7 +1,9 @@
 package com.bartindr.bartender.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,6 +23,7 @@ import com.bartindr.bartender.models.DrinkListIngredient;
 import com.bartindr.bartender.models.Ingredient;
 import com.bartindr.bartender.services.ChecklistService;
 import com.bartindr.bartender.services.MainService;
+import com.google.gson.JsonObject;
 
 @RestController
 public class ApiController {
@@ -98,6 +101,16 @@ public class ApiController {
 	@RequestMapping("/api/test3")
 	public void test3() throws IOException {
 		mainService.addIngredientsToDrinks(mainService.getAllDrinks());
+	}
+	
+	@RequestMapping("api/test4")
+	public String test4() throws IOException {
+		return mainService.getDrinkJson((long) 11007);
+	}
+	
+	@RequestMapping("api/test5")
+	public Map<String, ArrayList<Object>> test5(long id) throws IOException {
+		return mainService.getDrinkJsonObject(id);
 	}
 	
 	@DeleteMapping("/checklist/api/{id}/delete/{ingId}")
