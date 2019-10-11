@@ -7,7 +7,6 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -16,9 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bartindr.bartender.models.Drink;
+import com.bartindr.bartender.models.DrinkIngredient;
 import com.bartindr.bartender.models.DrinkList;
 import com.bartindr.bartender.models.DrinkListIngredient;
 import com.bartindr.bartender.models.Ingredient;
+import com.bartindr.bartender.repositories.DrinkIngredientRepository;
 import com.bartindr.bartender.repositories.DrinkListIngredientRepository;
 import com.bartindr.bartender.repositories.DrinkListRepository;
 import com.bartindr.bartender.repositories.DrinkRepository;
@@ -37,6 +38,8 @@ public class MainService {
  	private DrinkListIngredientRepository drinkListIngredientRepository;
  	@Autowired
  	private DrinkListRepository drinkListRepository;
+ 	@Autowired
+ 	private DrinkIngredientRepository drinkIngredientRepository;
 
 	public void populateIngredientsDB() throws IOException {
 		URL url = new URL("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list");
@@ -131,13 +134,25 @@ public class MainService {
 		    
 		    for( Object bev : bevs ) {
 		    	JsonObject jobj = gson.toJsonTree(bev).getAsJsonObject();
-		    	Map<String, String> ingredientMap = new HashMap<>();
-		    	System.out.println(jobj.get("strIngredient4")==null);
-		    	for(int i = 1; i < 15; i++) {
+//		    	List<Ingredient> ingredients = (List<Ingredient>)new ArrayList<Ingredient>();
+		    	List<Ingredient> ingredients = new ArrayList<Ingredient>();
+		    	for(int i = 1; i <= 15; i++) {
+		    		if(jobj.get("strIngredient"+i)!=null) {
+//		    			try {
+//		    				ingredientMap.put(jobj.get("strIngredient"+i).toString(), jobj.get("strMeasure"+i).toString());		    					    				
+//		    			} catch(Exception e) {
+//		    				ingredientMap.put(jobj.get("strIngredient"+i).toString(), "");
+//		    			}
+		    			DrinkIngredient dI = new DrinkIngredient();
+		    			Drink dr = this.findDrinkByName(jobj.get("strDrink").toString());
+		    			dI.setIngredient(this.findIngredientByName(jobj.get("strIngredient"+i).toString()));
+		    			dI.setDrink(dr);
+		    			drinkIngredientRepository.save(dI);
+//		    			ingredients.add(this.findIngredientByName(jobj.get("strIngredient"+i).toString()));
+		    		} 
 		    		if(jobj.get("strIngredient"+i)==null) {
 		    			break;
 		    		}
-		    		ingredientMap.put(jobj.get("strIngredient"+i).toString(), jobj.get("strMeasure"+i).toString());		    		
 		    	}
 //		    	ingredientMap.put(jobj.get("strIngredient2").toString(), jobj.get("strMeasure2").toString());
 //		    	ingredientMap.put(jobj.get("strIngredient3").toString(), jobj.get("strMeasure3").toString());
@@ -153,7 +168,7 @@ public class MainService {
 //		    	ingredientMap.put(jobj.get("strIngredient13").toString(), jobj.get("strMeasure13").toString());
 //		    	ingredientMap.put(jobj.get("strIngredient14").toString(), jobj.get("strMeasure14").toString());
 //		    	ingredientMap.put(jobj.get("strIngredient15").toString(), jobj.get("strMeasure15").toString());
-		    	System.out.println(ingredientMap);
+//		    	System.out.println(ingredientMap);
 		    }
 		    
 		}
@@ -214,5 +229,13 @@ public class MainService {
 		}
 	}
 	
+	public Drink findDrinkByName(String name) {
+		Optional<Drink> optionalDrink = drinkRepository.findByName(name);
+		if(optionalDrink.isPresent()) {
+			return optionalDrink.get();
+		} else {
+			return null;
+		}
+	}
 	
 }
