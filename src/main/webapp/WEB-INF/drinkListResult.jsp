@@ -19,7 +19,7 @@
 	<c:forEach items="${drinks}" var="drink">
 		<ul>
 			<li>
-				<c:out value="${drink.name}"/>
+				<a href="/drinks/${drink.drinkId}"><c:out value="${drink.name}"/></a>
 				<ul>
 					<c:forEach items="${drink.ingredients}" var="ingredient">
 						<li>
