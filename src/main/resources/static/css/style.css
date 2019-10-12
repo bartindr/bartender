@@ -1,0 +1,370 @@
+body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-family: 'Overpass', sans-serif; letter-spacing: 0px; font-size: 17px; color: #8d8f90; font-weight: 400; line-height: 32px; background-color: #edefef; }
+h1, h2, h3, h4, h5, h6 { color: #25292a; margin: 0px 0px 10px 0px; font-family: 'Overpass', sans-serif; font-weight: 700; letter-spacing: -1px; line-height: 1; }
+h1 { font-size: 34px; }
+h2 { font-size: 28px; line-height: 38px; }
+h3 { font-size: 22px; line-height: 32px; }
+h4 { font-size: 20px; }
+h5 { font-size: 17px; }
+h6 { font-size: 12px; }
+p { margin: 0 0 20px; line-height: 1.7; }
+p:last-child { margin: 0px; }
+a { text-decoration: none; color: #8d8f90; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; }
+a:focus, a:hover { text-decoration: none; color: #f85759; }
+
+/* LOGIN */ 
+
+#logo {
+	display: flex;
+	justify-content: center;
+}
+
+#logo-text {
+	font-weight: bold;
+	font-size: 5rem;
+}
+
+.login-container{
+	margin-top: 5%;
+	margin-bottom: 5%;
+}
+
+.login-form-1, .login-form-2 {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.login-form-1{
+	padding: 5%;
+	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form-1 h3{
+	text-align: center;
+	color: #333;
+}
+.login-form-2{
+	padding: 5%;
+	background: #0062cc;
+	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form-2 h3{
+	text-align: center;
+	color: #fff;
+}
+.login-container form{
+	padding: 10%;
+}
+
+.login-button-div {
+	display: flex;
+	justify-content: center;
+}
+.btnSubmit
+{
+	width: 50%;
+	border-radius: 1rem;
+	padding: 1.5%;
+	border: none;
+	cursor: pointer;
+}
+.login-form-1 .btnSubmit{
+	font-weight: 600;
+	color: #fff;
+	background-color: #0062cc;
+}
+.login-form-2 .btnSubmit{
+	font-weight: 600;
+	color: #0062cc;
+	background-color: #fff;
+}
+.login-form-2 .ForgetPwd{
+	color: #fff;
+	font-weight: 600;
+	text-decoration: none;
+}
+.login-form-1 .ForgetPwd{
+	color: #0062cc;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+/* DASHBOARD */
+
+.page-header { 
+	background: url(https://bartindr.s3-us-west-1.amazonaws.com/champagner-1071356_1920.jpg)no-repeat; 
+	background-position: center;
+	position: relative; 
+	background-size: cover; 
+
+	box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.2), 0 5px 15px 0 rgba(0, 0, 0, 0.19);
+}
+.page-caption { 
+	padding-top: 150px; 
+	padding-bottom: 154px; 
+}
+.page-title { 
+	font-size: 4rem; 
+	line-height: 1; 
+	color: #fff; 
+	font-weight: 600; 
+	text-align: center; 
+	
+
+	text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+             0px 8px 13px rgba(0,0,0,0.1),
+             0px 18px 23px rgba(0,0,0,0.1);
+}
+
+.section-section { 
+	position: relative; 
+	bottom: 60px;
+
+}
+.section-block { 
+	padding: 80px; 
+}
+.section-title { 
+	margin-bottom: 60px; 
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.page-main-container {
+	justify-content: center;
+	align-items: center;
+}
+.page-main-body {
+	min-height: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	box-shadow: inset 0 7px 9px -7px rgba(0,0,0,0.4), inset 0 9px 15px -16px rgba(0,0,0,0.2);
+}
+
+.dash-main {
+	padding: 2rem 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.dash-main p {
+	font-size: .75rem;
+}
+
+.dash-btn {
+	font-weight: 600;
+	color: #fff;
+	background-color: #0062cc;
+}
+
+.nav {
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+}
+
+.nav ul {
+	list-style-type: none;
+	margin-top: 7.5px;
+	display: flex;
+}
+
+.nav li {
+
+	padding: 5px;
+}
+
+#header-logo {
+	padding: 15px;
+	font-weight: bold;
+	text-shadow: 0px 3px 0px #0000b2	,
+                 0px 14px 10px rgba(0,0,0,0.15),
+                 0px 24px 2px rgba(0,0,0,0.1),
+                 0px 34px 30px rgba(0,0,0,0.1);
+}
+ 
+#header-logo a{
+	color: #FFF;
+}
+
+#header-logo a:hover{
+	color: #0062cc;
+	text-decoration: none;
+}
+
+/* DRINK LISTS */
+
+.drink-lists-header {
+	background: url(https://bartindr.s3.us-west-1.amazonaws.com/champagne-2335596_1920.jpg)no-repeat;
+}
+
+#drink-lists-container {
+	display: flex;
+	flex-direction: column;
+	/* justify-content: flex-start; */
+	align-items: flex-start;
+}
+
+#drinkList {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+#new-list-name-input {
+	width: 250px;
+}
+
+#make-new-list-form{
+	margin-top: 75px;
+	margin-bottom: 50px;
+}
+
+#drink-lists-list {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+	background-color: #e5e5ff;
+
+	-webkit-box-shadow: 0 8px 6px -6px black;
+	   -moz-box-shadow: 0 8px 6px -6px black;
+	        box-shadow: 0 8px 6px -6px black;
+}
+
+#drink-lists-list-head  {
+	display: flex;
+	justify-content: center;
+}
+
+
+/* CHECK LIST */
+
+/* #checklist-main {
+	display: flex;
+}
+
+#ingredient-search-div {
+	width: 50%;
+}
+
+#current-ingredients-div {
+	min-width: 30%;
+	max-width: 50%;
+}
+
+#current-ingredients-table {
+	font-family: Comic Sans MS;
+	background-color: #fdfd96;
+	padding: 10px;
+}
+
+#currentInfredients td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.delete-list-item {
+	font-weight: bold;
+	font-size: 19px;
+} */
+
+.check-list-header {
+	background: url(https://bartindr.s3.us-west-1.amazonaws.com/bar-2685155_1920.jpg)no-repeat;
+	background-size: cover;
+}
+
+#check-lists-list {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	color: #000;
+
+	background-color: #fdfd96;
+
+	-webkit-box-shadow: 0 8px 6px -6px black;
+	   -moz-box-shadow: 0 8px 6px -6px black;
+					box-shadow: 0 8px 6px -6px black;
+	margin-bottom: 50px;
+}
+
+.delete-list-item {
+	font-weight: bold;
+	font-size: 19px;
+	background: none;
+	border: none;
+	font-family: comic sans ms;
+}
+
+.checklist-delete-td {
+	display: flex;
+	justify-content: center;
+}
+
+#submit-checklist {
+	border-radius: 1rem;
+	padding: 2%;
+	margin: 5% 0;
+	border: none;
+	cursor: pointer;
+	font-weight: 600;
+	color: #000;
+	background-color: #f7dc70;
+  box-shadow: 3px 3px 5px 0px #c2ac7c;
+}
+
+.ui-menu, .ui-menu-item a {
+	background-color: #FFF;
+	color: #000;
+}
+
+/* DRINKS RESULTS */
+
+#drink-list-results {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.drink-card {
+	margin: 1%;
+	box-shadow: 3px 3px 5px 0px #c2ac7c;
+	width: 30%;
+	height: 400px;
+	
+}
+
+.drink-card h3 {
+	width: 100%;
+}
+.drink-card-img {
+	height: 80%;
+	background-size: cover;
+}
+
+/*  */
+
+.show-card {
+	margin: 1%;
+	box-shadow: 3px 3px 5px 0px #c2ac7c;
+	width: 80%;
+	height: 400px;
+}
+
+#show-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: cneter;
+	align-items: center;
+}
